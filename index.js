@@ -8,7 +8,7 @@ if(!fs.existsSync(path)){
 }
 
 function file2pdf(filename,cb) {
-    exec(`officetopdf.exe ${filename} ${filename.split('.')[0]}.pdf`, (err, stdout, stderr) => {
+    exec(`${fs.realpathSync('.\\\\')}\\OfficeToPdf.exe "${filename}" "${filename.split('.')[0]}.pdf"`, (err, stdout, stderr) => {
         if (err) {
             console.error(err);
             cb(err,undefined)
@@ -104,17 +104,20 @@ async function json2pdf(json) {
 }
 function downloads2pdf(dwnld_path = path) {
     let urls = [];
-    function callback(err,unt) {
-        if(unt){
+    let paths = [];
+    function callback(err,path) {
+        if(err){
             console.warn(err);
-            urls.push(unt);
         }
+        paths.push(path);
     }
     fs.readdirSync(dwnld_path).forEach(file => {
-        file2pdf(file,callback)
+        file2pdf(path+'\\'+file,callback)
     });
-    return urls;
+    return [urls,paths];
 }
+downloads2pdf('./downloads');
+/*
 json2pdf([
     {
         "descripition": "\"https://drive.google.com/file/d/1Hi0-Yfz3rOpl72MLyoBFTK8oxmRh1-yu/view?usp=sharing Техническое задание\"",
@@ -149,4 +152,4 @@ json2pdf([
             "http://cloud.it-help247.ru/index.php/s/WI2soy0x2EKoQPy"
         ]
     }
-]);//require('./description_obr.json'));
+]);//require('./description_obr.json'));*/
