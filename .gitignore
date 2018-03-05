@@ -1,0 +1,15 @@
+*.log
+*.tmp
+*.tmp.*
+log.txt
+.vscode/
+.idea/
+.sourcemaps/
+.sass-cache/
+.tmp/
+.versions/
+node_modules/
+downloads/
+$RECYCLE.BIN/
+.DS_Store
+Thumbs.db
